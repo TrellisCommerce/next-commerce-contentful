@@ -111,7 +111,7 @@ const Layout: React.FC<Props> = ({
   const { locale = 'en-US' } = useRouter()
   const navBarlinks = categories.slice(0, 2).map((c) => ({
     label: c.name,
-    href: `/search/${c.slug}`,
+    href: c.slug.includes('blog') ? `/${c.slug}` : `/search/${c.slug}`,
   }))
 
   return (

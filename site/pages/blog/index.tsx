@@ -3,7 +3,6 @@ import { createClient } from 'contentful'
 import Link from 'next/link'
 import { Layout } from '@components/common'
 import { formatDate } from '@utils/formatDate'
-import Image from 'next/image'
 
 type Props = {
   data: any
@@ -39,7 +38,7 @@ export default function BlogListing({ data }: Props) {
   console.log(clientEntries[1]?.fields.heroImage.fields.file.url)
   return (
     <div className="block w-full max-w-6xl m-auto px-6">
-      <h1 className="text-5xl mt-7 mb-12">Store Blog</h1>
+      <h1 className="text-5xl mt-7 mb-12 font-semibold">Store Blog</h1>
       <hr />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {clientEntries.map((item: any) => (
@@ -77,22 +76,21 @@ export default function BlogListing({ data }: Props) {
               <Link
                 className="
                 mt-4
-                py-2 
+                py-2
                 px-4
               bg-white
               text-black
                 border-gray-500
                 border-2
-                inline-block
-                py-2
-                px-4
-                bg-white
-                text-black
-                inline-block
                 hover:bg-gray-900
                 hover:border-gray-900
                 hover:text-white
-                transition"
+                disabled:border-gray-300
+                disabled:bg-gray-300
+                disabled:text-gray-500
+                disabled:cursor-not-allowed
+                transition
+                inline-block"
                 href={`/blog/${item.fields.slug}`}
               >
                 Read More
@@ -101,21 +99,15 @@ export default function BlogListing({ data }: Props) {
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-2 gap-3 mt-10 max-w-xs m-auto">
+      <div className="grid grid-cols-2 gap-3 mt-10 mb-24 max-w-xs m-auto">
         <button
           className="
           py-2
           px-4
-        bg-white
-        text-black
-          border-gray-500
-          border-2
-          inline-block
-          py-2
-          px-4
           bg-white
           text-black
-          inline-block
+          border-gray-500
+          border-2
           hover:bg-gray-900
           hover:border-gray-900
           hover:text-white
@@ -131,26 +123,20 @@ export default function BlogListing({ data }: Props) {
         </button>
         <button
           className="
-                    py-2
-                    px-4
-                  bg-white
-                  text-black
-                    border-gray-500
-                    border-2
-                    inline-block
-                    py-2
-                    px-4
-                    bg-white
-                    text-black
-                    inline-block
-                    hover:bg-gray-900
-                    hover:border-gray-900
-                    hover:text-white
-                    transition
-                    disabled:border-gray-300
-                    disabled:bg-gray-300
-                    disabled:text-gray-500
-                    disabled:cursor-not-allowed"
+          py-2
+          px-4
+        bg-white
+        text-black
+          border-gray-500
+          border-2
+          hover:bg-gray-900
+          hover:border-gray-900
+          hover:text-white
+          transition
+          disabled:border-gray-300
+          disabled:bg-gray-300
+          disabled:text-gray-500
+          disabled:cursor-not-allowed"
           onClick={() => setCount(count < data.total - 1 ? count + 9 : count)}
           disabled={count === data.total || count === data.total - 9}
         >

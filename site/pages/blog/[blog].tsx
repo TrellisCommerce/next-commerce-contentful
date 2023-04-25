@@ -70,9 +70,12 @@ export default function blog({ data, relatedEntries }: Props) {
           )}
           <div className="italic">
             <p>
-              <span className="font-bold">
+              <Link
+                href={`author/${data[0].fields.author.fields.slug}`}
+                className="font-bold"
+              >
                 {data[0].fields.author ? data[0].fields.author.fields.name : ''}{' '}
-              </span>
+              </Link>
               on
             </p>
             <p className="block w-full">{data[0].date}</p>

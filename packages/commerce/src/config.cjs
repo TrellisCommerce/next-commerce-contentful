@@ -8,7 +8,7 @@ const importCwd = require('import-cwd')
 
 function withCommerceConfig(nextConfig = {}) {
   const commerce = nextConfig.commerce || {}
-  const { provider } = commerce
+  const { provider, modulePath } = commerce
 
   if (!provider) {
     throw new Error(
@@ -16,7 +16,7 @@ function withCommerceConfig(nextConfig = {}) {
     )
   }
 
-  const commerceNextConfig = importCwd(path.posix.join(provider, 'next.config'))
+  const commerceNextConfig = importCwd(path.posix.join(modulePath, 'next.config.cjs'))
   const config = merge(nextConfig, commerceNextConfig)
   const features = merge(
     config.commerce.features,

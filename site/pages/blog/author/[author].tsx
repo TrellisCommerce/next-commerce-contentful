@@ -3,6 +3,7 @@ import { createClient } from 'contentful'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Layout } from '@components/common'
 import Link from 'next/link'
+import { renderOptions } from '@utils/renderOptions'
 
 type Props = {
   data: any
@@ -11,8 +12,7 @@ type Props = {
 
 export default function blog({ data, relatedEntries }: Props) {
   const author = data[0].fields
-  console.log(author)
-  console.log(relatedEntries)
+
   return (
     <div className="block w-full max-w-6xl m-auto mt-7">
       <div className="flex gap-3 content-center items-center mb-12">
@@ -23,15 +23,17 @@ export default function blog({ data, relatedEntries }: Props) {
         />
         <div>
           <h1 className="text-4xl mb-2 font-semibold">{author.name}</h1>
-          <h2 className="text-2xl text-gray-500 italic">{author.jobTitle}</h2>
-          {documentToReactComponents(author.bio.content[0])}
+          <h2 className="text-2xl text-gray-500 italic mb-2">
+            {author.jobTitle}
+          </h2>
+          {documentToReactComponents(author.bio.content[0], renderOptions)}
         </div>
       </div>
 
       <div className="bg-gray-100 h-[2px] w-full"></div>
 
       <section className="block w-full max-w-6xl m-auto">
-        <h2 className="text-3xl mt-20 mb-6">Related Posts</h2>
+        <h2 className="text-3xl mt-20 mb-6">Stephen's Recent Posts</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {relatedEntries.items.map((item: any) => (
             <div
@@ -93,8 +95,6 @@ export async function getServerSideProps(context: any) {
     limit: 3,
     'fields.author.sys.id': authorEntryId,
   })
-
-  console.log(relatedEntries)
 
   const data = entries.items
 

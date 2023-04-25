@@ -13,7 +13,6 @@ export default function BlogListing({ data }: Props) {
   const [clientEntries, setClientEntries] = useState<any>([])
   const [count, setCount] = useState(0)
   useEffect(() => {
-    // console.log(process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID)
     const client = createClient({
       accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN as string,
       space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID as string,
@@ -28,14 +27,13 @@ export default function BlogListing({ data }: Props) {
         skip: count,
       })
       .then((entriesList: any) => {
-        console.log(entriesList)
         const entriesFormattedDate = entriesList.items.map((item: any) => {
           return { ...item, date: formatDate(item.sys.createdAt) }
         })
         setClientEntries(entriesFormattedDate)
       })
   }, [count])
-  console.log(clientEntries[1]?.fields.heroImage.fields.file.url)
+
   return (
     <div className="block w-full max-w-6xl m-auto px-6">
       <h1 className="text-5xl mt-7 mb-12 font-semibold">Store Blog</h1>
@@ -155,8 +153,7 @@ export async function getServerSideProps(context: any) {
 
   const entriesList = await client.getEntries({
     content_type: 'blogPost',
-    //@ts-ignore
-    order: 'sys.createdAt',
+    order: 'sys.createdAt' as any,
     limit: 9,
     skip: 0,
   })

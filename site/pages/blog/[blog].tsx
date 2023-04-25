@@ -37,7 +37,11 @@ const options = {
       const asset = node.data.target
       if (asset.fields.file.contentType.includes('image')) {
         return (
-          <img src={asset.fields.file.url} alt={asset.fields.description} />
+          <img
+            className="rte-image object-cover"
+            src={asset.fields.file.url}
+            alt={asset.fields.description}
+          />
         )
       }
       return null
@@ -81,8 +85,9 @@ export default function blog({ data, relatedEntries }: Props) {
             <p className="block w-full">{data[0].date}</p>
           </div>
         </div>
-
-        {documentToReactComponents(data[0].fields.body, options)}
+        <div className="rte-content">
+          {documentToReactComponents(data[0].fields.body, options)}
+        </div>
       </div>
       <section className="block w-full max-w-6xl m-auto">
         <h2 className="text-3xl mt-20 mb-6">Related Posts</h2>

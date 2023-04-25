@@ -1,11 +1,8 @@
 import React from 'react'
 import { createClient } from 'contentful'
-//@ts-ignore
-import { BLOCKS, MARKS } from '@contentful/rich-text-types'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 import { Layout } from '@components/common'
 import Link from 'next/link'
-import { formatDate } from '@utils/formatDate'
 
 type Props = {
   data: any
@@ -17,11 +14,21 @@ export default function blog({ data, relatedEntries }: Props) {
   console.log(author)
   console.log(relatedEntries)
   return (
-    <div className="block w-full">
-      <div>{author.name}</div>
-      <div>{author.jobTitle}</div>
-      <div>{author.profilePhoto.fields.file.url}</div>
-      {/* <div>{author.bio.content}</div> */}
+    <div className="block w-full max-w-6xl m-auto mt-7">
+      <div className="flex gap-3 content-center items-center mb-12">
+        <img
+          className="w-80"
+          src={author.profilePhoto.fields.file.url}
+          alt=""
+        />
+        <div>
+          <h1 className="text-4xl mb-2 font-semibold">{author.name}</h1>
+          <h2 className="text-2xl text-gray-500 italic">{author.jobTitle}</h2>
+          {documentToReactComponents(author.bio.content[0])}
+        </div>
+      </div>
+
+      <div className="bg-gray-100 h-[2px] w-full"></div>
 
       <section className="block w-full max-w-6xl m-auto">
         <h2 className="text-3xl mt-20 mb-6">Related Posts</h2>
